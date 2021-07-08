@@ -1,0 +1,5 @@
+# See https://docs.liquibase.com/concepts/sql-format.html
+databaseChangeLog:
+  - includeAll:
+      path: changes
+      relativeToChangelogFile: true

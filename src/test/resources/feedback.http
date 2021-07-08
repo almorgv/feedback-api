@@ -1,0 +1,255 @@
+###
+### auth
+###
+### Clear .idea\httpRequests\http-client.cookies file before performing auth requests
+###
+### Get csrf token
+## @no-cookie-jar
+# NOT NEEDED BECAUSE CSRF WAS DISABLED
+#GET {{url}}/api/login
+
+
+#> {% client.global.set("_csrf", response.headers.valueOf("Set-Cookie").split(";")[0].split("=")[1]) %}
+
+### Authorization with csrf token
+POST {{url}}/api/login
+Content-Type: application/x-www-form-urlencoded
+
+username={{username}}&password={{password}}
+
+
+###
+
+###
+### users
+###
+
+GET {{url}}/api/users/search/getCurrentlyAuthenticated
+
+###
+
+###
+
+GET {{url}}/api/reviews/35
+
+###
+
+PATCH {{url}}/api/users/4
+Content-Type: application/json
+
+{
+"position": "MIDDLE",
+"userRole": "ROLE_USER",
+"jobRole": "/jobRoles/1"
+}
+
+###
+
+POST {{url}}/api/users
+Content-Type: application/json
+
+{
+"username": "user2",
+"userRole": "ROLE_USER",
+"position": "MIDDLE"
+}
+
+###
+
+PATCH {{url}}/api/users/2
+Content-Type: application/json
+
+{
+"position": "SENIOR"
+}
+
+###
+### reviews
+###
+
+GET {{url}}/api/reviews/
+
+###
+
+PATCH {{url}}/api/reviews/43
+Content-Type: application/json
+
+{
+"period": "Q123123"
+}
+
+###
+
+POST {{url}}/api/reviews
+Content-Type: application/json
+
+{
+"user": "/users/3",
+"period": "Q1"
+}
+
+###
+
+POST {{url}}/api/reviews
+Content-Type: application/json
+
+{
+"user": "/users/4",
+"period": "Q1"
+}
+
+###
+### sheets
+###
+
+GET {{url}}/api/sheets/58/sheetAnswer
+
+###
+
+POST {{url}}/api/sheets
+Content-Type: application/json
+
+{
+"review": "/reviews/42",
+"reviewer": "/users/4",
+"reviewerGroup": "COLLEAGUE",
+"dueDate": "2021-03-30"
+}
+
+###
+### jobRoles
+###
+
+GET {{url}}/api/jobRoles
+
+###
+
+POST {{url}}/api/jobRoles
+Content-Type: application/json
+
+{
+"name": "Developer"
+}
+
+###
+
+###
+### criterias
+###
+
+GET {{url}}/api/criterias
+
+###
+
+POST {{url}}/api/criterias
+Content-Type: application/json
+
+{
+"name": "some1",
+"description": "asdasda\nasdasd\nasdasdasd",
+"jobRole": "/jobRoles/1"
+}
+
+###
+
+POST {{url}}/api/criterias
+Content-Type: application/json
+
+{
+"name": "some2",
+"description": "asdasda\nasdasd\nasdasdasd",
+"jobRole": "/jobRoles/1"
+}
+
+###
+
+POST {{url}}/api/criterias
+Content-Type: application/json
+
+{
+"name": "some3",
+"description": "asdasda\nasdasd\nasdasdasd",
+"jobRole": "/jobRoles/1"
+}
+
+###
+### answers
+###
+
+GET {{url}}/api/answers
+
+###
+
+POST {{url}}/api/answers
+Content-Type: application/json
+
+{
+"sheet": "/sheets/5",
+"criteria": "/criterias/6",
+"score": "MEET_EXPECTATIONS",
+"comment": "comment"
+}
+
+###
+
+POST {{url}}/api/answers
+Content-Type: application/json
+
+{
+"sheet": "/sheets/5",
+"criteria": "/criterias/7",
+"score": "ABOVE_EXPECTATIONS",
+"comment": "comment"
+}
+
+###
+
+POST {{url}}/api/answers
+Content-Type: application/json
+
+{
+"sheet": "/sheets/5",
+"criteria": "/criterias/8",
+"score": "BELOW_EXPECTATIONS",
+"comment": "comment"
+}
+
+###
+
+###
+### sheet answer
+###
+
+GET {{url}}/api/sheetAnswers/62/sheet
+
+###
+
+POST {{url}}/api/sheetAnswers
+Content-Type: application/json
+
+{
+"sheet": "/sheets/58",
+"totalScore": "MEET_EXPECTATIONS",
+"comment": "comment"
+}
+
+###
+### self_review
+###
+
+GET {{url}}/api/selfReviews
+
+###
+
+POST {{url}}/api/selfReviews
+Content-Type: application/json
+
+{
+"user": "/users/2",
+"review": "/reviews/4",
+"description": "description\nasdasd\nasdasd",
+"goodThings": "goodThings\nasdasd\nasdasd",
+"badThings": "badThings\nasdasd\nasdasd"
+}
+
+###

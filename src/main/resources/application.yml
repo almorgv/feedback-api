@@ -1,0 +1,74 @@
+# This file contains main application properties
+# Any property can be overridden in application-dev.yml as long as active profile is `dev`
+
+app:
+logging:
+  level:
+    root: INFO
+  # To enable default spring logging override the value of this option with ""
+#  config: classpath:logback-json.xml
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+    session:
+      timeout: 48h
+  ssl:
+    enabled: false
+    key-store-type: PKCS12
+    key-store:
+    key-store-password:
+management:
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  endpoint:
+    prometheus:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: info, health, prometheus
+spring:
+  main:
+    banner-mode: off
+    allow-bean-definition-overriding: false
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        jdbc:
+          lob.non_contextual_creation: true
+        order_inserts: true
+        dialect: org.hibernate.dialect.PostgreSQL10Dialect
+  datasource:
+    url: "jdbc:postgresql://${embedded.postgresql.host}:${embedded.postgresql.port}/${embedded.postgresql.schema}"
+    username: ${embedded.postgresql.user}
+    password: ${embedded.postgresql.password}
+    initialization-mode: always
+    driver-class-name: org.postgresql.Driver
+  task:
+    scheduling:
+      pool:
+        size: 10
+  profiles:
+    active: dev
+  data:
+    rest:
+      return-body-on-create: true
+      return-body-on-update: true
+  liquibase:
+    enabled: true
+  ldap:
+    urls:
+#      - ldap://dc.local:389
+  devtools:
+    # set to true in -dev properties
+    add-properties: false
+    livereload:
+      # set to true in -dev properties
+      enabled: false
